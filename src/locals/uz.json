@@ -1,0 +1,17 @@
+{
+    "en":"Inglizcha",
+    "ru":"Ruscha",
+    "uz":"O'zbekcha",
+    "dashboard":"Asosiy",
+    "categories":"Bo'limlar",
+    "users":"Foydalanuvchilar",
+    "settings":"Sozlamalar",
+    "courses" : "Kurslar",
+    "coursemoduls" : "Kurs Modullari",
+    "coursecomments" : "Kurs Sharxlari",
+    "coursebenefits" : "Kurs Foydalari",
+    "courserequirments" : "Kurs Talablari",
+    "mentors": "Ustozlar",
+    "videos":"Kurs Videolari",
+    "students":"O'quvchilar"
+}

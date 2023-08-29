@@ -1,0 +1,18 @@
+{
+    "en" : "Английский",
+    "ru" : "Русский",
+    "uz" : "Узбекский",
+    "dashboard":"Главный панель",
+    "categories":"Категории",
+    "masters":"Мастера",
+    "users":"Пользователи",
+    "settings":"Настройки",
+    "courses" : "Курсы",
+    "coursemoduls" : "Модули курса",
+    "coursecomments" : "Комментарии к курсу",
+    "coursebenefits" : "Преимущества курса",
+    "courserequirments" : "Требования курса",
+    "mentors": "Наставники",
+    "videos":"Видео курса",
+    "students":"Студенты"
+}

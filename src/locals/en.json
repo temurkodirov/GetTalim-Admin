@@ -1,0 +1,19 @@
+{
+    "en" : "English",
+    "ru" : "Russian",
+    "uz" : "Uzbek",
+    "dashboard" : "Dashboard",
+    "categories" : "Categories",
+    "masters" : "Masters",
+    "users" : "Users",
+    "settings" : "Settings",
+    "courses" : "Courses",
+    "coursemoduls" : "Course Modules",
+    "coursecomments" : "Course Comments",
+    "coursebenefits" : "Course Benefits",
+    "courserequirments" : "Course Requirements",
+    "mentors": "Mentors",
+    "videos":"Course Videos",
+    "students":"Students"
+
+}
