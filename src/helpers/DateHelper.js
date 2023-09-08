@@ -1,4 +1,4 @@
-function formatDate(date) {
+ export  function formatDate(date) {
     const dateObject = new Date(date);
 
     const year = dateObject.getFullYear();

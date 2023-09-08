@@ -14,7 +14,7 @@
     <Header></Header>
     <Sidebar></Sidebar>
     <div class="p-4 sm:ml-64">
-        <div class="p-4 mt-14">
+        <div class="p-4 mt-7">
             <RouterView></RouterView>
             <Footer></Footer>
         </div>

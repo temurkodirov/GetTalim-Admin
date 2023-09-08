@@ -13,6 +13,7 @@
     "axios": "^1.5.0",
     "flowbite": "^1.8.1",
     "i18n": "^0.15.1",
+    "js-cookie": "^3.0.5",
     "pinia": "^2.1.6",
     "vue": "^3.3.4",
     "vue-i18n": "^9.2.2",
@@ -28,6 +29,7 @@
     "eslint-plugin-vue": "^9.16.1",
     "postcss": "^8.4.28",
     "prettier": "^3.0.0",
+    "tailwind-scrollbar": "^3.0.5",
     "tailwindcss": "^3.3.3",
     "vite": "^4.4.9"
   }

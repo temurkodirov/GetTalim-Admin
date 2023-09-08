@@ -1,4 +1,4 @@
-class CategoryViewModel {
+export default class CategoryViewModel {
     constructor() {
         this.name = "";
         this.description = "";
@@ -8,4 +8,3 @@ class CategoryViewModel {
     }
 }
 
-module.exports = CategoryViewModel;

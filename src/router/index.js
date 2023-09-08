@@ -10,6 +10,7 @@ import requirementView from "@/views/requirments/RequirementView.vue";
 import studentView from "@/views/students/StudentView.vue";
 import videoView from "@/views/videos/VideoView.vue";
 import commentView from "@/views/comments/commentView.vue";
+import courseDetailsView from "@/components/courses/CourseDetailsView.vue";
 
 
 const router = createRouter({
@@ -42,7 +43,7 @@ const router = createRouter({
           component: moduleView
         },
         {
-          path: "courses",
+          path: "course",
           component: courseView
         },
         {
@@ -60,12 +61,14 @@ const router = createRouter({
         {
           path: "benefits",
           component: benefitView
+        },
+        {
+          path: "a-course/:id",
+          name:'a-course',
+          component: courseDetailsView
         }
-
-
-
-
       ]
+
     },
     {
       path: "/auth",
@@ -77,7 +80,7 @@ const router = createRouter({
           component: Login
         }
       ]
-    },
+    }
   ]
 })
 
