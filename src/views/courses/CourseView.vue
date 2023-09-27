@@ -41,7 +41,10 @@ export default defineComponent({
         :created-at-s = element.createdAt
         :updated-at-s = element.updatedAt
         ></CourseViewComponent>
-</template> </template>
+
+</template>
+
+    </template>
 
 
 </template>

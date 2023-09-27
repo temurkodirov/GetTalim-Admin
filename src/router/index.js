@@ -43,7 +43,7 @@ const router = createRouter({
           component: moduleView
         },
         {
-          path: "course",
+          path: "courses",
           component: courseView
         },
         {

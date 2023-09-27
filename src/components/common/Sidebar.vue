@@ -20,7 +20,7 @@ const { t } = useI18n();
         <div class="h-full px-3 pb-4 overflow-y-auto bg-gray-100 dark:bg-gray-800">
             <ul class="space-y-2 font-medium">
                 <li>
-                    <RouterLink to="dashboard">
+                    <RouterLink to="/dashboard">
                         <div class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
                             <IconDashboard></IconDashboard>
                             <span class="ml-3">{{ $t("dashboard") }}</span>
@@ -29,7 +29,7 @@ const { t } = useI18n();
                 </li>
 
                 <li>
-                    <RouterLink to="category">
+                    <RouterLink to="/category">
                         <div class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
                             <IconCategories></IconCategories>
                             <span class="flex-1 ml-3 whitespace-nowrap">{{ $t("categories") }}</span>
@@ -38,7 +38,7 @@ const { t } = useI18n();
                 </li>
 
                 <li>
-                    <RouterLink to="students">
+                    <RouterLink to="/students">
                         <div class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
                             <IconStudents></IconStudents>
                             <span class="flex-1 ml-3 whitespace-nowrap">{{ $t("students") }}</span>
@@ -47,7 +47,7 @@ const { t } = useI18n();
                 </li>
 
                 <li>
-                    <RouterLink to="mentors">
+                    <RouterLink to="/mentors">
                         <div class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
                             <IconMentors></IconMentors>
                             <span class="flex-1 ml-3 whitespace-nowrap">{{ $t("mentors") }}</span>
@@ -56,7 +56,7 @@ const { t } = useI18n();
                 </li>
 
                 <li>
-                    <RouterLink to="modules">
+                    <RouterLink to="/modules">
                         <div class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
                             <IconCourseModuls> </IconCourseModuls>
                             <span class="flex-1 ml-3 whitespace-nowrap">{{ $t("coursemoduls") }}</span>
@@ -64,7 +64,7 @@ const { t } = useI18n();
                     </RouterLink>
                 </li>
                 <li>
-                    <RouterLink to="courses">
+                    <RouterLink to="/courses">
                         <div class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
                             <IconCourse> </IconCourse>
                             <span class="flex-1 ml-3 whitespace-nowrap">{{ $t("course") }}</span>
@@ -72,7 +72,7 @@ const { t } = useI18n();
                     </RouterLink>
                 </li>
                 <li>
-                    <RouterLink to="videos">
+                    <RouterLink to="/videos">
                         <div class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
                             <IconVideos></IconVideos>
                             <span class="flex-1 ml-3 whitespace-nowrap">{{ $t("videos") }}</span>
@@ -80,7 +80,7 @@ const { t } = useI18n();
                     </RouterLink>
                 </li>
                 <li>
-                    <RouterLink to="comments">
+                    <RouterLink to="/comments">
                         <div class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
                             <IconCourseComments></IconCourseComments>
                             <span class="flex-1 ml-3 whitespace-nowrap">{{ $t("coursecomments") }}</span>
@@ -88,7 +88,7 @@ const { t } = useI18n();
                     </RouterLink>
                 </li>
                 <li>
-                    <RouterLink to="requirements">
+                    <RouterLink to="/requirements">
                         <div class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
                             <IconCourseRequirments></IconCourseRequirments>
                             <span class="flex-1 ml-3 whitespace-nowrap">{{ $t("courserequirments") }}</span>
@@ -96,7 +96,7 @@ const { t } = useI18n();
                     </RouterLink>
                 </li>
                 <li>
-                    <RouterLink to="benefits">
+                    <RouterLink to="/benefits">
                         <div class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
                             <IconCourseBenefits></IconCourseBenefits>
                             <span class="flex-1 ml-3 whitespace-nowrap">{{ $t("coursebenefits") }}</span>
