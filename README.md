@@ -1,16 +1,27 @@
-# GetTalim-Admin
+## GetTalim-Admin
+Category page
+![Image URL](https://github.com/temurkodirov/GetTalim-Admin/blob/main/GithhubPicture/1.png)
 
-This template should help get you started developing with Vue 3 in Vite.
+Create Category (In Uzbek language)
+![Image URL](https://github.com/temurkodirov/GetTalim-Admin/blob/main/GithhubPicture/2.png)
 
-## Recommended IDE Setup
+Create Category (In English )
+![Image URL](https://github.com/temurkodirov/GetTalim-Admin/blob/main/GithhubPicture/3.png)
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
+Update Category (In Russian )
+![Image URL](https://github.com/temurkodirov/GetTalim-Admin/blob/main/GithhubPicture/4.png)
 
-## Customize configuration
+Light mode
+![Image URL](https://github.com/temurkodirov/GetTalim-Admin/blob/main/GithhubPicture/5.png)
 
-See [Vite Configuration Reference](https://vitejs.dev/config/).
+Students page
+![Image URL](https://github.com/temurkodirov/GetTalim-Admin/blob/main/GithhubPicture/6.png)
 
-## Project Setup
+Mentors page
+![Image URL](https://github.com/temurkodirov/GetTalim-Admin/blob/main/GithhubPicture/7.png)
+
+Course page
+![Image URL](https://github.com/temurkodirov/GetTalim-Admin/blob/main/GithhubPicture/8.png)
 
 ```sh
 npm install
@@ -20,16 +31,4 @@ npm install
 
 ```sh
 npm run dev
-```
-
-### Compile and Minify for Production
-
-```sh
-npm run build
-```
-
-### Lint with [ESLint](https://eslint.org/)
-
-```sh
-npm run lint
 ```
