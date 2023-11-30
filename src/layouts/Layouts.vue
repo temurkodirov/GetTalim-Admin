@@ -7,17 +7,18 @@
     import FlowBiteSetup from "../FlowbiteSetup.vue";
 </script>
 
-<template>
-    <h1>Temur</h1>
+<template >
+    <div class="flex flex-col h-screen">
     <FlowBiteSetup></FlowBiteSetup>
     <ThemeSetter></ThemeSetter>
     <Header></Header>
     <Sidebar></Sidebar>
     <div class="p-4 sm:ml-64">
-        <div class="p-4 mt-7">
+        <div class="p-4 mt-12">
             <RouterView></RouterView>
-            <Footer></Footer>
         </div>
+    </div>
+            <Footer class="mt-auto"></Footer>
     </div>
 </template>
 

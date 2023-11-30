@@ -66,90 +66,15 @@ export default defineComponent({
 })
 </script>
 <template >
-    <div class="absolute popUp w-3/12 p-3  mt-5  right-28 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-        <div class="image-container px-2 pt-2">
-            <img class="image-square rounded-lg" v-bind:src = "imageFullPath"  alt="" />
-        </div>
-        <div class="px-3 pt-1 pb-2">
-            <div class="flex justify-between my-2 ">
-                <p class="text-xl font-bold tracking-tight text-gray-900 dark:text-white">
-                    {{fullCourse.discountPrice}} </p>
-                <p class="text-xl line-through font-bold tracking-tight text-gray-900 dark:text-white">
-                    {{fullCourse.price}} </p>
-            </div>
-
-            <hr class="h-px my-1 bg-gray-200 border-0 dark:bg-gray-700">
-            <p class="flex justify-between font-normal text-gray-700 dark:text-white">
-                <span class="flex">
-               <IconMentors class="mr-2"></IconMentors>
-                    {{$t("mentors")}}</span>
-                {{fullCourse.mentor}}  </p>
-
-            <hr class="h-px my-1 bg-gray-200 border-0 dark:bg-gray-700">
-            <p class="flex  font-normal justify-between text-gray-700 dark:text-gray-100">
-                <div class="flex">
-                <IconLessons class="mr-2"></IconLessons>
-                {{$t("Lessons")}}</div> {{ fullCourse.lessons }} </p>
-            <hr class="h-px my-1 bg-gray-200 border-0 dark:bg-gray-700">
-
-            <p class="flex justify-between font-normal text-gray-700 dark:text-gray-100">
-            <div class="flex">
-                <IconCreatedAt class="mr-2"></IconCreatedAt> {{$t("Created-At")}}   </div>
-            {{ created }}       </p>
-            <hr class="h-px my-1 bg-gray-200 border-0 dark:bg-gray-700">
-
-            <p class="flex justify-between font-normal text-gray-700 dark:text-gray-100">
-               <span class="flex">
-                <IconUpdatedAt class="mr-2"></IconUpdatedAt> {{$t("Updated-At")}}</span>
-                 {{ updated }} </p>
-            <hr class="h-px my-1 bg-gray-200 border-0 dark:bg-gray-700">
-
-            <p class="flex justify-between font-normal text-gray-700 dark:text-gray-100">
-                <span class="flex">
-                <IconClock class="mr-2"></IconClock> {{$t("Hours")}}</span>
-                 {{ fullCourse.hours }} </p>
-            <hr class="h-px my-1 bg-gray-200 border-0 dark:bg-gray-700">
-
-            <p class="flex justify-between font-normal text-gray-700 dark:text-gray-100">
-                <span class="flex">
-                <IconLevel class="mr-2"></IconLevel> {{$t("Level")}}</span>
-                 {{ fullCourse.level }} </p>
-            <hr class="h-px my-1 bg-gray-200 border-0 dark:bg-gray-700">
-
-            <p class="flex justify-between font-normal text-gray-700 dark:text-gray-100">
-                <span class="flex">
-                <IconLanguage class="mr-2"> </IconLanguage> {{$t("Language")}}</span>
-                 {{ fullCourse.language }} </p>
-            <hr class="h-px my-1 bg-gray-200 border-0 dark:bg-gray-700">
-
-            <p class="flex justify-between font-normal text-gray-700 dark:text-gray-100">
-                <span class="flex">
-                <IconCertificate class="mr-2"></IconCertificate>
-                {{$t("Certificate")}} </span>
-                {{$t("noBtn")}}  </p>
-            <hr class="h-px my-1 bg-gray-200 border-0 dark:bg-gray-700">
-
-            <p class="flex justify-between font-normal text-gray-700 dark:text-gray-100">
-                <span class="flex">
-               <IconLifetime class="mr-2"></IconLifetime>
-                    {{$t("Access")}}</span>
-                {{$t("Lifelong")}}  </p>
-            <hr class="h-px my-1 bg-gray-200 border-0 dark:bg-gray-700">
-            <div class="flex justify-center">
-                <CourseEditModal></CourseEditModal> </div>
-        </div>
-    </div>
-    <div class="flex flex-col items-center" >
-        <div class="w-5/6">
-
+    <div class="flex flex-wrap justify-center gap-10">
+        <div class=" w-7/12 ">
             <div class=" p-3 bg-gray-100  rounded-lg shadow border border-gray-200 dark:bg-gray-800 dark:border-gray-700" >
                 <p class="text-3xl font-normal bold text-gray-700 dark:text-gray-100">{{fullCourse.name}}</p>
-                <p class=" mt-3 w-3/5 text-l font-normal bold text-gray-700 dark:text-gray-100">{{fullCourse.description}}</p>
-
+                <p class=" mt-3  text-l font-normal bold text-gray-700 dark:text-gray-100">{{fullCourse.description}}</p>
             </div>
             <div class="mt-2 p-3 bg-gray-100  rounded-lg shadow border border-gray-200 dark:bg-gray-800 dark:border-gray-700" >
                 <p class="text-3xl font-normal bold text-gray-700 dark:text-gray-100">{{$t("Information")}}</p>
-                <p class=" mt-3 w-3/5 text-l font-normal bold text-gray-700 dark:text-gray-100">{{fullCourse.information}}</p>
+                <p class=" mt-3 text-l font-normal bold text-gray-700 dark:text-gray-100">{{fullCourse.information}}</p>
             </div>
             <div class="mt-2 p-3 bg-gray-100  rounded-lg shadow border border-gray-200 dark:bg-gray-800 dark:border-gray-700" >
                 <p class="text-3xl font-normal bold text-gray-700 dark:text-gray-100">{{$t("What-you-will-learn")}}</p>
@@ -168,6 +93,79 @@ export default defineComponent({
                 </ul>
             </div>
 
+        </div>
+        <div class="popUp w-3/12 p-3     bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+            <div class="image-container px-2 pt-2">
+                <img class="image-square rounded-lg" v-bind:src = "imageFullPath"  alt="" />
+            </div>
+            <div class="px-3 pt-1 pb-2">
+                <div class="flex justify-between my-2 ">
+                    <p class="text-xl font-bold tracking-tight text-gray-900 dark:text-white">
+                        {{fullCourse.discountPrice}} </p>
+                    <p class="text-xl line-through font-bold tracking-tight text-gray-900 dark:text-white">
+                        {{fullCourse.price}} </p>
+                </div>
+
+                <hr class="h-px my-1 bg-gray-200 border-0 dark:bg-gray-700">
+                <p class="flex justify-between font-normal text-gray-700 dark:text-white">
+                <span class="flex">
+               <IconMentors class="mr-2"></IconMentors>
+                    {{$t("mentors")}}</span>
+                    {{fullCourse.mentor}}  </p>
+
+                <hr class="h-px my-1 bg-gray-200 border-0 dark:bg-gray-700">
+                <p class="flex  font-normal justify-between text-gray-700 dark:text-gray-100">
+                <div class="flex">
+                    <IconLessons class="mr-2"></IconLessons>
+                    {{$t("Lessons")}}</div> {{ fullCourse.lessons }} </p>
+                <hr class="h-px my-1 bg-gray-200 border-0 dark:bg-gray-700">
+
+                <p class="flex justify-between font-normal text-gray-700 dark:text-gray-100">
+                <div class="flex">
+                    <IconCreatedAt class="mr-2"></IconCreatedAt> {{$t("Created-At")}}   </div>
+                {{ created }}       </p>
+                <hr class="h-px my-1 bg-gray-200 border-0 dark:bg-gray-700">
+
+                <p class="flex justify-between font-normal text-gray-700 dark:text-gray-100">
+               <span class="flex">
+                <IconUpdatedAt class="mr-2"></IconUpdatedAt> {{$t("Updated-At")}}</span>
+                    {{ updated }} </p>
+                <hr class="h-px my-1 bg-gray-200 border-0 dark:bg-gray-700">
+
+                <p class="flex justify-between font-normal text-gray-700 dark:text-gray-100">
+                <span class="flex">
+                <IconClock class="mr-2"></IconClock> {{$t("Hours")}}</span>
+                    {{ fullCourse.hours }} </p>
+                <hr class="h-px my-1 bg-gray-200 border-0 dark:bg-gray-700">
+
+                <p class="flex justify-between font-normal text-gray-700 dark:text-gray-100">
+                <span class="flex">
+                <IconLevel class="mr-2"></IconLevel> {{$t("Level")}}</span>
+                    {{ fullCourse.level }} </p>
+                <hr class="h-px my-1 bg-gray-200 border-0 dark:bg-gray-700">
+
+                <p class="flex justify-between font-normal text-gray-700 dark:text-gray-100">
+                <span class="flex">
+                <IconLanguage class="mr-2"> </IconLanguage> {{$t("Language")}}</span>
+                    {{ fullCourse.language }} </p>
+                <hr class="h-px my-1 bg-gray-200 border-0 dark:bg-gray-700">
+
+                <p class="flex justify-between font-normal text-gray-700 dark:text-gray-100">
+                <span class="flex">
+                <IconCertificate class="mr-2"></IconCertificate>
+                {{$t("Certificate")}} </span>
+                    {{$t("noBtn")}}  </p>
+                <hr class="h-px my-1 bg-gray-200 border-0 dark:bg-gray-700">
+
+                <p class="flex justify-between font-normal text-gray-700 dark:text-gray-100">
+                <span class="flex">
+               <IconLifetime class="mr-2"></IconLifetime>
+                    {{$t("Access")}}</span>
+                    {{$t("Lifelong")}}  </p>
+                <hr class="h-px my-1 bg-gray-200 border-0 dark:bg-gray-700">
+                <div class="flex justify-center">
+                    <CourseEditModal></CourseEditModal> </div>
+            </div>
         </div>
     </div>
 </template>

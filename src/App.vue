@@ -1,11 +1,11 @@
 <script setup >
-    import { RouterLink, RouterView } from 'vue-router'
+    import { RouterView } from 'vue-router'
     import FlowbiteSetup from './FlowbiteSetup.vue';
 </script>
 
 <template>
     <FlowbiteSetup></FlowbiteSetup>
-    <RouterView></RouterView>
+    <RouterView ></RouterView>
 </template>
 
 <style scoped>
