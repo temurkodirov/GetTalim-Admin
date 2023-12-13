@@ -1,125 +1,324 @@
 <script>
-import {defineComponent} from "vue";
+
 import axios from "@/plugins/axios";
-export default defineComponent({
-    props:{
-        id:Number
+import CategoryDeleteComponent from "@/components/category/CategoryDeleteComponent.vue";
+import CourseDeleteModal from "@/components/courses/CourseDeleteModal.vue";
+
+export default {
+  name: "CourseEditModal",
+  components: {
+    CourseDeleteModal,
+    CategoryDeleteComponent
+
+  },
+  props: {
+    courseId: {
+      type: Number,
+      require: false
     },
-    methods:{
-        async getCourseAsync(){
-            var course = await axios.get("/api/courses/"+this.id);
-            console.log("course: ", course.data);
-            this.courseList = course.data;
-        }
+    update: Boolean,
+  },
+  data() {
+    return {
+      obj:null,
+      showModal: false,
+      createError: false,
+      course: {
+        name: "test",
+        description: "test",
+        information: "test",
+        lessons: 0,
+        level: 0,
+        language: 0,
+        hourse: 0,
+        image: null,
+        price: Number,
+        discountPrice: Number,
+        mentorId: 0,
+        categoryId: 0
+      },
+      selectedImage: null,
+      mentors: [],
+      categories: [],
+      errorSubmit: false,
+      errorMessages: [],
+      submitBtn: false
+    }
+  },
+  methods: {
+    async openModal() {
+      await this.getCourseAsync().then( ()=>  this.showModal = true);
     },
-    data(){
-        return{
-            courseList:[],
-        }
+    closeModal() {
+      this.showModal = false;
+    },
+    async getCategories() {
+      try {
+        const result = await  axios.get('/api/categories?page=1');
+        this.categories = result.data;
+      }catch (error) {
+        console.log(error.message)
+      }
+    },
+    async getCourseAsync() {
+      let response = await  axios.get("/api/courses/"+this.courseId);
+      this.course = response.data;
+      console.log('response obj', this.course)
+    },
+    async getMentors() {
+      try {
+        const result = await  axios.get('/api/mentors?page=1');
+        this.mentors = result.data;
+      }catch (error) {
+        console.log(error.message)
+      }
     },
 
-})
+    async submitHandler() {
+      try {
+        this.submitBtn= true;
+        this.course.Image = this.selectedImage;
+
+        const response = await axios.post("/api/courses", this.course, {
+          headers: {
+            'Content-Type' : 'multipart/form-data'
+          },
+        });
+
+        if (response.status === 200) {
+          this.closeModal();
+          location.reload();
+        } else {
+          this.errorSubmit = true;
+          this.errorMessages = response.data.errors;
+          console.log(this.errorMessages)
+        }
+      } catch (error) {
+        this.errorSubmit = true;
+        this.errorMessage = error.message;
+        console.log('nimadur', error.message)
+      }
+      finally {
+        this.submitBtn= false;
+      }
+    },
+    courseImageHandler() {
+      this.selectedImage = event.target.files[0]
+    }
+  },
+  async mounted() {
+    await this.getCategories();
+    await this.getMentors();
+  }
+
+}
 </script>
 <template>
-    <button data-modal-target="defaultModal" data-modal-toggle="defaultModal" class=" focus:outline-none w-full mt-2 text-white bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm  py-2  dark:focus:ring-yellow-900" type="button">
-        {{$t("edit")}}
+
+  <div class="w-full text-center flex justify-center">
+    <button  @click="openModal" type="button"
+             class="focus:outline-none   w-full mt-2 text-white bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm  py-2  dark:focus:ring-yellow-900">
+      {{$t("update") }}
     </button>
+  </div>
+
+
+
 
   <!-- Main modal -->
-    <div id="defaultModal" tabindex="-1" aria-hidden="true" class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
-        <div class="relative w-full max-w-full h/56 max-h-full h-screen ">
-            <!-- Modal content -->
-            <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
-                <!-- Modal header -->
-                <div class="flex items-start justify-between p-4 border-b rounded-t dark:border-gray-600">
+  <div v-if="showModal"
+       class="fixed overflow-x-auto  top-0 left-0 right-0 z-50 w-full h-screen flex items-center justify-center bg-black bg-opacity-50">
+    <div class="relative w-full max-w-xl max-h-full">
+      <!-- Modal content -->
+      <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+        <button @click="closeModal"
+                class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                data-modal-hide="edit-modal">
+          <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+               viewBox="0 0 14 14">
+            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+          </svg>
+          <span class="sr-only">Close modal</span>
+        </button>
+        <div class="px-6 py-6 lg:px-8">
 
-                    <div class="text-sm font-medium text-center text-gray-500 border-b border-gray-200 dark:text-gray-400 dark:border-gray-700">
-                        <ul class="flex flex-wrap ">
-                            <li class="mr-2">
-                                <a href="#" class=" active inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300
-                                    " aria-current="page">Course</a>
-                            </li>
-                            <li class="mr-2">
-                                <a href="#" class="inline-block p-4 text-blue-600 border-b-2 border-blue-600 rounded-t-lg dark:text-blue-500 dark:border-blue-500"
-                                    >Benefits</a>
-                            </li>
-                            <li class="mr-2">
-                                <a href="#" class="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300
-                                    ">Requirements</a>
-                            </li>
-                            <li class="mr-2">
-                                <a href="#" class="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300
-                                    ">Contacts</a>
-                            </li>
+          <div v-if="errorSubmit" class="flex items-center p-4 mb-4 text-sm text-red-800 border
+                     border-red-300 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400
+                     dark:border-red-800" role="alert">
+            <ul>
+              <li v-for="errorMessage in errorMessages" :key="errorMessage"> {{errorMessage[0]}} </li>
+            </ul>
+            <button @click="errorSubmit = false" type="button"
+                    class="ms-auto -mx-1.5 -my-1.5 bg-red-50
+                            text-red-500 rounded-lg
+                            focus:ring-2 focus:ring-red-400 p-1.5 hover:bg-red-200 inline-flex items-center
+                            justify-center h-8 w-8 dark:bg-gray-800 dark:text-red-400 dark:hover:bg-gray-700"
+                    data-dismiss-target="#alert-2" aria-label="Close">
+              <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+              </svg>
+            </button>
+          </div>
 
-                        </ul>
-                    </div>
+          <form @submit.prevent>
+            <div class="grid gap-4 mb-2 sm:grid-cols-2">
+              <div>
+                <label for="name" class="block mb-2 text-sm
+                                        font-medium text-gray-900 dark:text-white"> Name
 
-                    <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="defaultModal">
-                        <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
-                        </svg>
-                        <span class="sr-only">Close modal</span>
-                    </button>
-                </div>
-                <!-- Modal body -->
+                </label>
+                <input v-model="course.name" type="text"  id="name"
+                       class="bg-gray-50 border border-gray-300 text-gray-900 text-sm
+                                   rounded-lg focus:ring-primary-600 focus:border-primary-600 block
+                                   w-full  dark:bg-gray-700 dark:border-gray-600
+                                   dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500
+                                    dark:focus:border-primary-500" autocomplete="off" />
+              </div>
+              <div>
+                <label for="image" class="block mb-2 text-sm
+                                    font-medium text-gray-900 dark:text-white"> Image
+                </label>
+                <input @change="courseImageHandler" type="file"  id="image"
+                       accept="image/heic , image/jpg, image/jpeg, image/JPEG, image/JPG, image/png"
+                       class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg
+                                       focus:ring-primary-600 focus:border-primary-600 block w-full  dark:bg-gray-700
+                                       dark:border-gray-600 dark:placeholder-gray-400 dark:text-white
+                                       dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                       aria-describedby="file_input_help" />
+              </div>
+              <div>
+                <label for="price" class="block mb-2 text-sm
+                                    font-medium text-gray-900 dark:text-white"> Price
+                </label>
+                <input v-model="course.price" type="number"  id="price"
+                       class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg
+                                   focus:ring-primary-600 focus:border-primary-600 block w-full  dark:bg-gray-700
+                                   dark:border-gray-600 dark:placeholder-gray-400 dark:text-white
+                                   dark:focus:ring-primary-500 dark:focus:border-primary-500" />
+              </div>
+              <div>
+                <label for="discountPrice" class="block mb-2 text-sm font-medium
+                                    text-gray-900 dark:text-white"> Discount Price
+                </label>
+                <input v-model="course.discountPrice" type="number"  id="price"
+                       class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg
+                                   focus:ring-primary-600 focus:border-primary-600 block w-full dark:bg-gray-700
+                                   dark:border-gray-600 dark:placeholder-gray-400 dark:text-white
+                                   dark:focus:ring-primary-500 dark:focus:border-primary-500" />
+              </div>
+              <div>
+                <label for="level" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                >Level
+                </label>
+                <select v-model="course.level" id="level"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm
+                                     rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full
+                                     dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white
+                                     dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                >
+                  <option value="0">Beginner</option>
+                  <option value="1">Middle</option>
+                  <option value="2">High</option>
+                </select>
+              </div>
+              <div>
+                <label for="language" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                >Language
+                </label>
+                <select v-model="course.language" id="language"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm
+                                    rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full
+                                    dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white
+                                    dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                >
+                  <option value="0">Uzbek</option>
+                  <option value="1">Russian</option>
+                  <option value="2">English</option>
+                </select>
+              </div>
+              <div>
+                <label for="category" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                >Category
+                </label>
+                <select v-model="course.categoryId" id="category"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm
+                                     rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full
+                                     dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white
+                                     dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                >
+                  <option  v-for="category in categories" :key="category.id" :value="category.id">
+                    {{ category.name }}
+                  </option>
+                </select>
+              </div>
+              <div>
+                <label for="mentors" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                >Mentors
+                </label>
+                <select v-model="course.mentorId" id="mentors"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm
+                                    rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full
+                                    dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white
+                                    dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                >
+                  <option v-for="mentor in mentors" :key="mentor.id" :value="mentor.id">
+                    {{ mentor.firstName +' ' + mentor.lastName  }}
+                  </option>
+                </select>
+              </div>
+              <div class="sm:col-span-2">
+                <label for="description" class="block mb-2 text-sm font-medium text-gray-900
+                            dark:text-white">Description</label>
+                <textarea v-model="course.description" id="description" rows="3"
+                          class="block  w-full text-sm text-gray-900
+                                        bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500
+                                        focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600
+                                        dark:placeholder-gray-400   dark:text-white
+                                        dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                          placeholder="Write a description..."
+                >  </textarea>
 
-                <form>
-                    <div class="grid gap-6 px-10 py-5 mb-6 md:grid-cols-2">
-                        <div>
-                        <div>
-                            <label  class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-                                Course Name </label>
-                            <input type="text"  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
-                        </div>
-                        <div>
-                            <label  class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                            > Lessons </label>
-                            <input type="number"  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
-                        </div>
-                        <div>
-                            <label  class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                            > Hours </label>
-                            <input type="number"  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
-                        </div>
-                        <div>
-                            <label  class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                            > Hours </label>
-                            <input type="number"  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
-                        </div>
-                        <div>
-                            <label  class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                            >Select a language</label>
-                            <select  class="bg-gray-50  border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                <option value="1">Uzbek</option>
-                                <option value="2">English</option>
-                                <option value="3">Russian</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" >
-                                Upload image</label>
-                            <input class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" aria-describedby="file_input_help" id="file_input"
-                                   type="file">
-                        </div>
+              </div>
+              <div class="sm:col-span-2">
+                <label for="description" class="block mb-2 text-sm font-medium text-gray-900
+                            dark:text-white">Information</label>
+                <textarea v-model="course.information" id="description" rows="3"
+                          class="block  w-full text-sm text-gray-900
+                                        bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500
+                                        focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600
+                                        dark:placeholder-gray-400   dark:text-white
+                                        dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                          placeholder="Write a Information..."
+                >  </textarea>
 
-                        </div>
-                        <div>
-
-                        </div>
-                    </div>
-
-                    <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Submit</button>
-                </form>
-
-                <!-- Modal footer -->
-                <div class="flex items-center p-6 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600">
-                    <button data-modal-hide="defaultModal" type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">I accept</button>
-                    <button data-modal-hide="defaultModal" type="button" class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">Decline</button>
-                </div>
+              </div>
             </div>
+            <div class="flex justify-between">
+              <CourseDeleteModal :courseId="courseId"/>
+<!--              <button @click="deleteCourse"-->
+<!--                      type="button"-->
+<!--                      :disabled="submitBtn"-->
+<!--                      class="focus:outline-none text-white bg-red-700-->
+<!--                                    hover:bg-red-800 focus:ring-4-->
+<!--                                    focus:ring-red-300 font-medium rounded-lg text-sm px-5-->
+<!--                                    py-2.5 me-2 mb-2 dark:bg-red-600-->
+<!--                                    dark:hover:bg-red-700 dark:focus:ring-red-900">-->
+<!--                Delete</button>-->
+              <button @click="submitHandler" type="button" class="text-white bg-gradient-to-r
+                                from-blue-500 via-blue-600 to-blue-700
+                                hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300
+                                dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg
+                                dark:shadow-blue-800/80
+                                font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 "
+                      :disabled="submitBtn">Submit</button>
+            </div>
+          </form>
+
         </div>
+      </div>
     </div>
+  </div>
 </template>
 
 

@@ -57,10 +57,11 @@ export default defineComponent({
 <template>
     <div class="bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
         <div class="image-container px-2 pt-2">
-            <img class="image-square rounded-lg" v-bind:src = "imageFullPath"  alt="" />
+            <img class="image-square rounded-lg" :src="imageFullPath"  alt="" />
         </div>
+
         <div class="px-3 pt-1 pb-2 flex flex-col items-center">
-            <p class=" font-normal text-gray-700 dark:text-gray-400">{{ category }} </p>
+            <p class=" font-normal text-gray-700 dark:text-gray-400">{{ category }}    </p>
             <h5 class="text-xl font-bold tracking-tight text-gray-900 dark:text-white"> {{courseName}}</h5>
 
             <div class="flex mt-1 flex-wrap items-center ">

@@ -57,7 +57,7 @@ export default defineComponent({
                 </div>
             </li>
         </ol>
-        <CourseCreateComponent/>
+        <CourseCreateComponent :update="false"/>
     </nav>
     <template class="grid grid-cols-4 md:grid-cols-4 gap-2">
 

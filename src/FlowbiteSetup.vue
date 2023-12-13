@@ -27,7 +27,10 @@ onMounted(() => {
     initPopovers();
     initTabs();
     initTooltips();
+
 })
+
+
 </script>
 
 <style scoped>

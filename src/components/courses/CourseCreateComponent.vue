@@ -7,23 +7,35 @@ export default {
     components: {
         IconCreate
     },
+  props: {
+  updateCourse: {
+    type: Object,
+    require: false,
+  },
+  courseId: {
+    type: Number,
+    require: false
+  },
+  update: Boolean,
+  },
     data() {
         return {
+          obj:null,
             showModal: false,
             createError: false,
             course: {
-                Name: "",
-                Description: "",
-                Information: "",
-                Lessons: 0,
-                Level: 0,
-                Language: 0,
-                Hourse: 0,
-                Image: null,
-                Price: Number,
-                DiscountPrice: Number,
-                MentorId: 0,
-                CategoryId: 0
+                name: "",
+                description: "",
+                information: "",
+                lessons: 0,
+                level: 0,
+                language: 0,
+                hourse: 0,
+                image: null,
+                price: Number,
+                discountPrice: Number,
+                mentorId: 0,
+                categoryId: 0
             },
             selectedImage: null,
             mentors: [],
@@ -74,7 +86,6 @@ export default {
                     this.errorMessages = response.data.errors;
                     console.log(this.errorMessages)
                 }
-
             } catch (error) {
                 this.errorSubmit = true;
                 this.errorMessage = error.message;
@@ -93,15 +104,21 @@ export default {
 }
 </script>
 <template>
-    <div class="flex w-100 justify-end">
-        <button @click="openModal" type="button"
+    <div v-if="!update" class="flex w-100 justify-end">
+        <button  @click="openModal" type="button"
                 class="text-white bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2">
-            <div class="flex flex-wrap items-center">
+            <span  class="flex flex-wrap items-center">
                 <IconCreate></IconCreate>
-                <p class="mx-2">{{$t("create") }}</p>
-            </div>
+                <span class="mx-2">{{$t("create") }}</span>
+            </span>
         </button>
     </div>
+  <div v-if="update" class="w-full text-center flex justify-center">
+      <button  @click="openModal" type="button"
+              class="focus:outline-none   w-full mt-2 text-white bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm  py-2  dark:focus:ring-yellow-900">
+        {{$t("update") }}
+      </button>
+  </div>
 
 
 
@@ -148,7 +165,7 @@ export default {
                             <label for="name" class="block mb-2 text-sm
                                         font-medium text-gray-900 dark:text-white"> Name
                             </label>
-                            <input v-model="course.Name" type="text"  id="name"
+                            <input v-model="course.name" type="text"  id="name"
                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm
                                    rounded-lg focus:ring-primary-600 focus:border-primary-600 block
                                    w-full  dark:bg-gray-700 dark:border-gray-600
@@ -171,7 +188,7 @@ export default {
                             <label for="price" class="block mb-2 text-sm
                                     font-medium text-gray-900 dark:text-white"> Price
                             </label>
-                            <input v-model="course.Price" type="number"  id="price"
+                            <input v-model="course.price" type="number"  id="price"
                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg
                                    focus:ring-primary-600 focus:border-primary-600 block w-full  dark:bg-gray-700
                                    dark:border-gray-600 dark:placeholder-gray-400 dark:text-white
@@ -181,7 +198,7 @@ export default {
                             <label for="discountPrice" class="block mb-2 text-sm font-medium
                                     text-gray-900 dark:text-white"> Discount Price
                             </label>
-                            <input v-model="course.DiscountPrice" type="number"  id="price"
+                            <input v-model="course.discountPrice" type="number"  id="price"
                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg
                                    focus:ring-primary-600 focus:border-primary-600 block w-full dark:bg-gray-700
                                    dark:border-gray-600 dark:placeholder-gray-400 dark:text-white
@@ -191,7 +208,7 @@ export default {
                             <label for="level" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                                     >Level
                             </label>
-                            <select v-model="course.Level" id="level"
+                            <select v-model="course.level" id="level"
                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm
                                      rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full
                                      dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white
@@ -206,7 +223,7 @@ export default {
                             <label for="language" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                                     >Language
                             </label>
-                            <select v-model="course.Language" id="language"
+                            <select v-model="course.language" id="language"
                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm
                                     rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full
                                     dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white
@@ -221,7 +238,7 @@ export default {
                             <label for="category" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                                 >Category
                             </label>
-                            <select v-model="course.CategoryId" id="category"
+                            <select v-model="course.categoryId" id="category"
                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm
                                      rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full
                                      dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white
@@ -236,7 +253,7 @@ export default {
                             <label for="mentors" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                                     >Mentors
                             </label>
-                            <select v-model="course.MentorId" id="mentors"
+                            <select v-model="course.mentorId" id="mentors"
                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm
                                     rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full
                                     dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white
@@ -250,7 +267,7 @@ export default {
                         <div class="sm:col-span-2">
                             <label for="description" class="block mb-2 text-sm font-medium text-gray-900
                             dark:text-white">Description</label>
-                            <textarea v-model="course.Description" id="description" rows="3"
+                            <textarea v-model="course.description" id="description" rows="3"
                                       class="block  w-full text-sm text-gray-900
                                         bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500
                                         focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600
@@ -263,7 +280,7 @@ export default {
                         <div class="sm:col-span-2">
                             <label for="description" class="block mb-2 text-sm font-medium text-gray-900
                             dark:text-white">Information</label>
-                            <textarea v-model="course.Information" id="description" rows="3"
+                            <textarea v-model="course.information" id="description" rows="3"
                                       class="block  w-full text-sm text-gray-900
                                         bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500
                                         focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600
